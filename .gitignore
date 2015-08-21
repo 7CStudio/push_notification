@@ -1,0 +1,17 @@
+/db.sqlite3
+*.pyc
+*.swp
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+push_notification.egg-info/

@@ -16,7 +16,7 @@ class AwsSNS(object):
 
     def register_device(self, device):
         attributes = {'Enabled': True}
-        custom_user_data = {"user_id": device.user_id, "device_id": device.id}
+        custom_user_data = {"user_id": device.user_id}
 
         boto.connect_sns(
             aws_access_key_id=self.aws_access_key_id,

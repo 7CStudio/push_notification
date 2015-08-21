@@ -2,17 +2,16 @@
 
 from django.conf import settings
 
+from .aws_sns import AwsSNS
+from .models import Device
+
 
 class ServiceType(object):
     AWS_SNS = 'sns'
 
 
-class AwsSNS(object):
-
-    def __init__(
-            self, aws_access_key_id=None, aws_secret_access_key=None,
-            aws_sns_region=None, aws_android_arn=None):
-        pass
+class DevicePlatform(object):
+    ANDROID = 'android'
 
 
 class PushNotification(object):
@@ -29,8 +28,14 @@ class PushNotification(object):
                 aws_sns_region=aws_sns_region or settings.AWS_SNS_REGION,
                 aws_android_arn=settings.AWS_ANDROID_ARN)
 
-    def register_device(self, user, device, platform):
-        pass
+    def register_device(self, user, device_token, device_platform):
+        device, created = Device.objects.get_or_create(
+            user=user, token=device_token, platform=device_platform)
+        arn = self.notification_service.register_device(device)
+        device.aws_sns_arn = arn
+        device.save()
 
-    def dispatch_notification(self, user, message):
-        pass
+    def dispatch_user_notification(self, user, message, message_format='json'):
+        for device in user.device_set.all():
+            self.notification_service.send_notification_to_device(
+                device, message, message_format)

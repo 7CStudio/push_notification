@@ -16,7 +16,6 @@ class AwsSNS(object):
 
     def register_device(self, device):
         attributes = {'Enabled': True}
-        custom_user_data = {"user_id": device.user_id}
 
         boto.connect_sns(
             aws_access_key_id=self.aws_access_key_id,
@@ -29,7 +28,7 @@ class AwsSNS(object):
 
         response = sns_conn.create_platform_endpoint(
             token=device.token, platform_application_arn=self.aws_android_arn,
-            custom_user_data=custom_user_data, attributes=attributes)
+            attributes=attributes)
         response_key = 'CreatePlatformEndpointResponse'
         result_key = 'CreatePlatformEndpointResult'
         arn = response[response_key][result_key]['EndpointArn']

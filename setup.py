@@ -10,7 +10,7 @@ except ImportError:
 
 setup(
     name='push_notification',
-    version='0.0.1b',
+    version='0.0.3',
     packages=['push_notification'],
     license='MIT',
     install_requires=[

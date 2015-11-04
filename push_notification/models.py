@@ -9,3 +9,6 @@ class Device(models.Model):
     token = models.CharField(max_length=255)
     aws_sns_arn = models.CharField(max_length=255, null=True)
     platform = models.CharField(max_length=10)
+
+    class Meta:
+        app_label = 'push_notification'

@@ -37,5 +37,6 @@ class PushNotification(object):
 
     def dispatch_user_notification(self, user, message, message_format='json'):
         for device in user.device_set.all():
+            message['device_token'] = device.token or ""
             self.notification_service.send_notification_to_device(
                 device, message, message_format)

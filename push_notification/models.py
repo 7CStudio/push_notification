@@ -12,3 +12,6 @@ class Device(models.Model):
 
     class Meta:
         app_label = 'push_notification'
+
+    def __unicode__(self):
+        return u"{} {} {}".format(self.user, self.token, self.platform)

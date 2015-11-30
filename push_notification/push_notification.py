@@ -40,3 +40,9 @@ class PushNotification(object):
             message['device_token'] = device.token or ""
             self.notification_service.send_notification_to_device(
                 device, message, message_format)
+
+    def remove_device(self, user, device_token, device_platform):
+        device = Device.objects.get(
+            user=user, token=device_token, platform=device_platform)
+        self.notification_service.remove_device(device)
+        device.delete()

@@ -49,3 +49,14 @@ class AwsSNS(object):
             target_arn=device.aws_sns_arn,
             message=payload,
             message_structure=message_format)
+
+    def remove_device(self, device):
+        boto.connect_sns(
+            aws_access_key_id=self.aws_access_key_id,
+            aws_secret_access_key=self.aws_secret_access_key)
+
+        sns_conn = boto.sns.connect_to_region(
+            region_name=self.aws_sns_region,
+            aws_access_key_id=self.aws_access_key_id,
+            aws_secret_access_key=self.aws_secret_access_key)
+        sns_conn.delete_endpoint(device.aws_sns_arn)

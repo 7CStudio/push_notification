@@ -15,6 +15,6 @@ setup(
     license='MIT',
     install_requires=[
         # -*- Extra requirements: -*-
-        'boto==2.38.0',
+        'boto==2.9.4',
     ],
 )
